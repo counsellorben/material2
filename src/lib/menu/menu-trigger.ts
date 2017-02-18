@@ -244,8 +244,9 @@ export class MdMenuTrigger implements AfterViewInit, OnDestroy {
    * @returns ConnectedPositionStrategy
    */
   private _getPosition(): ConnectedPositionStrategy  {
+    const overlayX: HorizontalConnectionPos = 'start';
     const [posX, fallbackX]: HorizontalConnectionPos[] =
-      this.menu.positionX === 'before' ? ['end', 'start'] : ['start', 'end'];
+      this.menu.positionX === 'before' ? ['start', 'end'] : ['end', 'start'];
 
     const [overlayY, fallbackOverlayY]: VerticalConnectionPos[] =
       this.menu.positionY === 'above' ? ['bottom', 'top'] : ['top', 'bottom'];
@@ -260,16 +261,17 @@ export class MdMenuTrigger implements AfterViewInit, OnDestroy {
 
     return this._overlay.position()
       .connectedTo(this._element,
-          {originX: posX, originY: originY}, {overlayX: posX, overlayY: overlayY})
+          {originX: posX, originY: originY},
+          {overlayX: overlayX, overlayY: overlayY})
       .withFallbackPosition(
           {originX: fallbackX, originY: originY},
-          {overlayX: fallbackX, overlayY: overlayY})
+          {overlayX: overlayX, overlayY: overlayY})
       .withFallbackPosition(
           {originX: posX, originY: fallbackOriginY},
-          {overlayX: posX, overlayY: fallbackOverlayY})
+          {overlayX: overlayX, overlayY: fallbackOverlayY})
       .withFallbackPosition(
           {originX: fallbackX, originY: fallbackOriginY},
-          {overlayX: fallbackX, overlayY: fallbackOverlayY});
+          {overlayX: overlayX, overlayY: fallbackOverlayY});
   }
 
   private _cleanUpSubscriptions(): void {

@@ -120,7 +120,7 @@ describe('MdMenu', () => {
       trigger.style.top = '600px';
 
       // Push trigger to the right, so it has space to open "before"
-      trigger.style.left = '100px';
+      trigger.style.left = '950px';
 
       fixture.componentInstance.trigger.openMenu();
       fixture.detectChanges();
@@ -158,11 +158,10 @@ describe('MdMenu', () => {
       const triggerRect = trigger.getBoundingClientRect();
       const overlayRect = overlayPane.getBoundingClientRect();
 
-      // In "before" position, the right sides of the overlay and the origin are aligned.
+      // In "before" fallback position, the left sides of the overlay and the origin are aligned.
       // To find the overlay left, subtract the menu width from the origin's right side.
-      const expectedLeft = triggerRect.right - overlayRect.width;
       expect(Math.round(overlayRect.left))
-          .toBe(Math.round(expectedLeft),
+          .toBe(Math.round(triggerRect.left),
               `Expected menu to open in "before" position if "after" position wouldn't fit.`);
 
       // The y-position of the overlay should be unaffected, as it can already fit vertically
@@ -196,7 +195,7 @@ describe('MdMenu', () => {
 
       // The x-position of the overlay should be unaffected, as it can already fit horizontally
       expect(Math.round(overlayRect.left))
-          .toBe(Math.round(triggerRect.left),
+          .toBe(Math.round(triggerRect.right),
               `Expected menu x position to be unchanged if it can fit in the viewport.`);
     });
 
@@ -217,11 +216,10 @@ describe('MdMenu', () => {
       const triggerRect = trigger.getBoundingClientRect();
       const overlayRect = overlayPane.getBoundingClientRect();
 
-      const expectedLeft = triggerRect.right - overlayRect.width;
       const expectedTop = triggerRect.bottom - overlayRect.height;
 
       expect(Math.round(overlayRect.left))
-          .toBe(Math.round(expectedLeft),
+          .toBe(Math.round(triggerRect.left),
               `Expected menu to open in "before" position if "after" position wouldn't fit.`);
 
       expect(Math.round(overlayRect.top))
