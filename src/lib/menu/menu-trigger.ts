@@ -245,6 +245,7 @@ export class MdMenuTrigger implements AfterViewInit, OnDestroy {
    */
   private _getPosition(): ConnectedPositionStrategy  {
     const overlayX: HorizontalConnectionPos = 'start';
+    const fallbackOverlayX: HorizontalConnectionPos = 'end';
     const [posX, fallbackX]: HorizontalConnectionPos[] =
       this.menu.positionX === 'before' ? ['start', 'end'] : ['end', 'start'];
 
@@ -265,13 +266,13 @@ export class MdMenuTrigger implements AfterViewInit, OnDestroy {
           {overlayX: overlayX, overlayY: overlayY})
       .withFallbackPosition(
           {originX: fallbackX, originY: originY},
-          {overlayX: overlayX, overlayY: overlayY})
+          {overlayX: fallbackOverlayX, overlayY: overlayY})
       .withFallbackPosition(
           {originX: posX, originY: fallbackOriginY},
           {overlayX: overlayX, overlayY: fallbackOverlayY})
       .withFallbackPosition(
           {originX: fallbackX, originY: fallbackOriginY},
-          {overlayX: overlayX, overlayY: fallbackOverlayY});
+          {overlayX: fallbackOverlayX, overlayY: fallbackOverlayY});
   }
 
   private _cleanUpSubscriptions(): void {

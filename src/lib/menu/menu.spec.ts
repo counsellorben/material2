@@ -158,9 +158,10 @@ describe('MdMenu', () => {
       const triggerRect = trigger.getBoundingClientRect();
       const overlayRect = overlayPane.getBoundingClientRect();
 
-      // In "before" fallback position, the left sides of the overlay and the origin are aligned.
+      // In "before" fallback position, the right side of the overlay and the left side of
+      // the origin are aligned.
       // To find the overlay left, subtract the menu width from the origin's right side.
-      expect(Math.round(overlayRect.left))
+      expect(Math.round(overlayRect.right))
           .toBe(Math.round(triggerRect.left),
               `Expected menu to open in "before" position if "after" position wouldn't fit.`);
 
@@ -218,7 +219,7 @@ describe('MdMenu', () => {
 
       const expectedTop = triggerRect.bottom - overlayRect.height;
 
-      expect(Math.round(overlayRect.left))
+      expect(Math.round(overlayRect.right))
           .toBe(Math.round(triggerRect.left),
               `Expected menu to open in "before" position if "after" position wouldn't fit.`);
 
